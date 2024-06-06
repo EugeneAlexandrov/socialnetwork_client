@@ -7,13 +7,13 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
-  pretty_dio_logger: ^1.1.1
+  awesome_dio_interceptor: ^1.2.0
   path_provider: ^2.0.11
   hydrated_bloc: ^9.1.5
   injectable: ^1.5.3
   injectable_generator: ^1.5.4
   get_it: ^7.2.0
-  dio: ^4.0.6
+  dio: ^5.4.3+1
   freezed: ^2.1.0+1
   freezed_annotation: ^2.1.0
   flutter_bloc: ^8.1.1

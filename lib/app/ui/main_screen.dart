@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
               icon: const Icon(Icons.face)),
           IconButton.outlined(
               onPressed: () {
-                context.read<AuthCubit>().refershToken();
+                context.read<AuthCubit>().refreshToken();
               },
               icon: const Icon(Icons.refresh_outlined)),
           IconButton.outlined(

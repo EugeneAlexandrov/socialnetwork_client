@@ -1,7 +1,7 @@
+import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:socialnetwork_client/app/data/auth_interceptor.dart';
 import 'package:socialnetwork_client/app/domain/app_api.dart';
 import 'package:socialnetwork_client/app/domain/app_config.dart';
@@ -11,14 +11,13 @@ class DioAppApi implements AppApi {
   late final Dio dio;
 
   DioAppApi(AppConfig appConfig) {
-    final options =
-        BaseOptions(baseUrl: appConfig.baseUrl, connectTimeout: 15000);
+    final options = BaseOptions(
+        baseUrl: appConfig.baseUrl, connectTimeout: Duration(seconds: 5));
     dio = Dio(options);
     if (kDebugMode) {
-      dio.interceptors.add(PrettyDioLogger(
-      ));
+      dio.interceptors.add(AwesomeDioInterceptor());
     }
-    dio.interceptors.add(AuthInterceptor());
+    dio.interceptors.add(BadRequestInterceptor(dio));
   }
 
   @override
@@ -112,6 +111,11 @@ class DioAppApi implements AppApi {
 
   @override
   Future<Response> fetch(RequestOptions requestOptions) {
-    return dio.fetch(requestOptions);
+    try {
+      return dio.fetch(requestOptions);
+    } catch (e) {
+      print('fetch');
+      rethrow;
+    }
   }
 }
