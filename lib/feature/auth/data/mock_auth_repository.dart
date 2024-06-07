@@ -45,7 +45,7 @@ class MockAuthRepository implements AuthRepository {
   }
 
   @override
-  Future updatePassword(
+  Future<String> updatePassword(
       {required String oldPassword, required String newPassword}) {
     // TODO: implement updatePassword
     throw UnimplementedError();

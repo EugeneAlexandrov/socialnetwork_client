@@ -16,7 +16,7 @@ class ErrorEntity {
     final entity = ErrorEntity(
       message: 'Неизветсная ошибка',
     );
-    if (error is DioError) {
+    if (error is DioException) {
       try {
         return ErrorEntity(
           message: error.response?.data['message'],

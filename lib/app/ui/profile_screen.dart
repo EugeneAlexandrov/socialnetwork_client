@@ -4,6 +4,7 @@ import 'package:socialnetwork_client/app/domain/error_entity/error_entity.dart';
 import 'package:socialnetwork_client/app/ui/app_loader.dart';
 import 'package:socialnetwork_client/app/ui/components/app_snackbar.dart';
 import 'package:socialnetwork_client/feature/auth/domain/auth_state/auth_cubit.dart';
+import 'package:socialnetwork_client/feature/auth/ui/components/password_update_dialog.dart';
 import 'package:socialnetwork_client/feature/auth/ui/components/user_update_dialog.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -74,7 +75,12 @@ class ProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  const PasswordUpdateDialog());
+                        },
                         child: Text('обновить пароль'),
                       ),
                       TextButton(

@@ -59,10 +59,15 @@ class NetworkAuthRepository implements AuthRepository {
   }
 
   @override
-  Future updatePassword(
-      {required String oldPassword, required String newPassword}) {
-    // TODO: implement updatePassword
-    throw UnimplementedError();
+  Future<String> updatePassword(
+      {required String oldPassword, required String newPassword}) async {
+    try {
+      final response = await api.updatePassword(
+          oldPassword: oldPassword, newPassword: newPassword);
+      return response.data['message'];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

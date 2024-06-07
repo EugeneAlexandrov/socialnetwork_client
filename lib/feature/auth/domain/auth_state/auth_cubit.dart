@@ -110,6 +110,21 @@ class AuthCubit extends HydratedCubit<AuthState> {
     }
   }
 
+  Future<void> updatePassword({
+    required String oldPassword,
+    required String newPassword,
+  }) async {
+    try {
+      _updateUserState(const AsyncSnapshot.waiting());
+      final String message = await authRepository.updatePassword(
+          oldPassword: oldPassword, newPassword: newPassword);
+      _updateUserState(AsyncSnapshot.withData(ConnectionState.done, message));
+    } catch (error) {
+      print('Cubit ApdateProfile catch exception');
+      _updateUserState(AsyncSnapshot.withError(ConnectionState.done, error));
+    }
+  }
+
   void _updateUserState(AsyncSnapshot userState) {
     emit(state.maybeWhen(
       orElse: () => state,
