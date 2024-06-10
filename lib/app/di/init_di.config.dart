@@ -12,6 +12,8 @@ import '../../feature/auth/data/mock_auth_repository.dart' as _i6;
 import '../../feature/auth/data/network_auth_repository.dart' as _i10;
 import '../../feature/auth/domain/auth_repository.dart' as _i5;
 import '../../feature/auth/domain/auth_state/auth_cubit.dart' as _i9;
+import '../../feature/posts/data/network_post_repo.dart' as _i12;
+import '../../feature/posts/domain/post_repository.dart' as _i11;
 import '../data/app_config.dart' as _i4;
 import '../data/dio_app_api.dart' as _i8;
 import '../domain/app_api.dart' as _i7;
@@ -49,11 +51,16 @@ _i1.GetIt $initGetIt(
     _i6.MockAuthRepository(),
     registerFor: {_dev},
   );
-  gh.singleton<_i7.AppApi>(_i8.DioAppApi(get<_i3.AppConfig>()));
   gh.factory<_i5.AuthRepository>(
     () => _i10.NetworkAuthRepository(api: get<_i7.AppApi>()),
     registerFor: {_prod},
-  );  
+  );
+  gh.singleton<_i7.AppApi>(_i8.DioAppApi(get<_i3.AppConfig>()));
   gh.singleton<_i9.AuthCubit>(_i9.AuthCubit(get<_i5.AuthRepository>()));
+  
+  gh.factory<_i11.PostRepository>(
+    () => _i12.NetworkPostRepository(api: get<_i7.AppApi>()),
+    registerFor: {_prod},
+  );
   return get;
 }

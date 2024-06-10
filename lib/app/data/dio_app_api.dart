@@ -12,7 +12,10 @@ class DioAppApi implements AppApi {
 
   DioAppApi(AppConfig appConfig) {
     final options = BaseOptions(
-        baseUrl: appConfig.baseUrl, connectTimeout: Duration(seconds: 5));
+      baseUrl: appConfig.baseUrl,
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 5),
+    );
     dio = Dio(options);
 
     if (kDebugMode) {
@@ -124,5 +127,10 @@ class DioAppApi implements AppApi {
       print('fetch');
       rethrow;
     }
+  }
+
+  @override
+  Future getPosts() {
+    return dio.get("/data/posts");
   }
 }

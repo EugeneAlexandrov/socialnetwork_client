@@ -4,6 +4,8 @@ import 'package:socialnetwork_client/app/di/init_di.dart';
 import 'package:socialnetwork_client/app/domain/app_builder.dart';
 import 'package:socialnetwork_client/app/ui/root_screen.dart';
 import 'package:socialnetwork_client/feature/auth/domain/auth_state/auth_cubit.dart';
+import 'package:socialnetwork_client/feature/posts/domain/post_repository.dart';
+import 'package:socialnetwork_client/feature/posts/domain/post_state/cubit/post_cubit.dart';
 
 class MainAppBuildert implements AppBuilder {
   @override
@@ -27,6 +29,11 @@ class _GlobalProviders extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (cointext) => locator.get<AuthCubit>(),
+        ),
+        BlocProvider(
+          create: (cointext) =>
+              PostCubit(locator.get<PostRepository>(), locator.get<AuthCubit>())
+                ..getPosts(),
         ),
       ],
       child: child,

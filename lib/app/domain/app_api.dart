@@ -23,6 +23,8 @@ abstract class AppApi {
     required String newPassword,
   });
 
+  Future<dynamic> getPosts();
+
   Future<dynamic> refreshToken({String? refreshToken});
 
   Future<dynamic> request(String path);
