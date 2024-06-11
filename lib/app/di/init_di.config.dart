@@ -51,13 +51,12 @@ _i1.GetIt $initGetIt(
     _i6.MockAuthRepository(),
     registerFor: {_dev},
   );
+  gh.singleton<_i7.AppApi>(_i8.DioAppApi(get<_i3.AppConfig>()));
   gh.factory<_i5.AuthRepository>(
     () => _i10.NetworkAuthRepository(api: get<_i7.AppApi>()),
     registerFor: {_prod},
   );
-  gh.singleton<_i7.AppApi>(_i8.DioAppApi(get<_i3.AppConfig>()));
-  gh.singleton<_i9.AuthCubit>(_i9.AuthCubit(get<_i5.AuthRepository>()));
-  
+  gh.singleton<_i9.AuthCubit>(_i9.AuthCubit(get<_i5.AuthRepository>()));  
   gh.factory<_i11.PostRepository>(
     () => _i12.NetworkPostRepository(api: get<_i7.AppApi>()),
     registerFor: {_prod},

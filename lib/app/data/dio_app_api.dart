@@ -149,4 +149,13 @@ class DioAppApi implements AppApi {
       rethrow;
     }
   }
+
+  @override
+  Future getPost(String id) {
+    try {
+      return dio.get("/data/posts/$id");
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

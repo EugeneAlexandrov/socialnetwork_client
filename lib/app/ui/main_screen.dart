@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialnetwork_client/app/ui/profile_screen.dart';
 import 'package:socialnetwork_client/feature/auth/domain/auth_state/auth_cubit.dart';
@@ -14,7 +13,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 16);
+    // const textStyle = TextStyle(fontSize: 16);
 
     return SafeArea(
       child: Scaffold(
@@ -56,7 +55,7 @@ class MainScreen extends StatelessWidget {
         ),
         body: const PostList(),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onPressed: () {
             showDialog(
                 context: context,

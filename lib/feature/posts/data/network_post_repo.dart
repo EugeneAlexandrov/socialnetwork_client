@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:socialnetwork_client/app/domain/app_api.dart';
+import 'package:socialnetwork_client/feature/posts/domain/entity/post/post_entity.dart';
 import 'package:socialnetwork_client/feature/posts/domain/post_repository.dart';
 
 @Injectable(as: PostRepository)
@@ -20,9 +21,13 @@ class NetworkPostRepository implements PostRepository {
   }
 
   @override
-  Future getPost({required String id}) {
-    // TODO: implement getPost
-    throw UnimplementedError();
+  Future<PostEntity> getPost(String id) async {
+    try {
+      final response = await api.getPost(id);
+      return PostEntity.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

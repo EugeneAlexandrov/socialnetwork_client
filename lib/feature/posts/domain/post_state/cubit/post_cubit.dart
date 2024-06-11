@@ -29,7 +29,7 @@ class PostCubit extends HydratedCubit<PostState> {
   late StreamSubscription authSubscreption;
 
   Future<void> getPosts() async {
-    emit(state.copyWith(asyncSnapshot: AsyncSnapshot.waiting()));
+    emit(state.copyWith(asyncSnapshot: const AsyncSnapshot.waiting()));
     await repository.getPosts().then((value) {
       final Iterable iterable = value;
       emit(
