@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialnetwork_client/app/ui/profile_screen.dart';
 import 'package:socialnetwork_client/feature/auth/domain/auth_state/auth_cubit.dart';
 import 'package:socialnetwork_client/feature/auth/domain/entities/user_entity.dart';
+import 'package:socialnetwork_client/feature/posts/ui/post_create_dialog.dart';
 import 'package:socialnetwork_client/feature/posts/ui/post_list.dart';
 
 class MainScreen extends StatelessWidget {
@@ -54,7 +55,15 @@ class MainScreen extends StatelessWidget {
           title: const Text('Main Screen'),
         ),
         body: const PostList(),
-      ), 
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) => const PostCreateDialog());
+          },
+        ),
+      ),
     );
   }
 }

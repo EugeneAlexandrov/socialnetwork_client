@@ -29,6 +29,7 @@ class PostCubit extends HydratedCubit<PostState> {
   late StreamSubscription authSubscreption;
 
   Future<void> getPosts() async {
+    emit(state.copyWith(asyncSnapshot: AsyncSnapshot.waiting()));
     await repository.getPosts().then((value) {
       final Iterable iterable = value;
       emit(
@@ -45,6 +46,15 @@ class PostCubit extends HydratedCubit<PostState> {
 
   void logout() {
     emit(state.copyWith(asyncSnapshot: AsyncSnapshot.nothing(), postList: []));
+  }
+
+  void createPost(Map arqs) async {
+    // emit(state.copyWith(asyncSnapshot: AsyncSnapshot.waiting()));
+    await repository.createPost(arqs).then((value) {
+      getPosts();
+    }).catchError((error) {
+      addError(error);
+    });
   }
 
   @override

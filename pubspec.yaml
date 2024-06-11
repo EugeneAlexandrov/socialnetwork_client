@@ -7,7 +7,7 @@ environment:
   sdk: '>=3.1.0 <4.0.0'
 
 dependencies:
-  awesome_dio_interceptor: ^1.2.0
+  pretty_dio_logger: ^1.3.1
   path_provider: ^2.0.11
   hydrated_bloc: ^9.1.5
   injectable: ^1.5.3

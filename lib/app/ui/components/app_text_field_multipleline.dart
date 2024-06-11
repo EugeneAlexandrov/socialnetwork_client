@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class AppTextField extends StatelessWidget {
-  const AppTextField(
+class MultipleAppTextField extends StatelessWidget {
+  const MultipleAppTextField(
       {super.key,
       required this.controller,
       required this.label,
@@ -17,9 +17,9 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       obscureText: obscureText,
       controller: controller,
-      maxLines: 1,
-      keyboardType: TextInputType.multiline,
       validator: emptyValidator,
+      maxLines: null,
+      keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         labelText: label,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16)),

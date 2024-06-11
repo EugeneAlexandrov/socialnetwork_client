@@ -10,9 +10,13 @@ class NetworkPostRepository implements PostRepository {
   NetworkPostRepository({required this.api});
 
   @override
-  Future createPost() {
-    // TODO: implement createPost
-    throw UnimplementedError();
+  Future<String> createPost(Map arqs) async {
+    try {
+      final response = await api.createPost(arqs);
+      return response.data["message"];
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

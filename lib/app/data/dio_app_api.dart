@@ -1,7 +1,7 @@
-import 'package:awesome_dio_interceptor/awesome_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:socialnetwork_client/app/data/auth_interceptor.dart';
 import 'package:socialnetwork_client/app/domain/app_api.dart';
 import 'package:socialnetwork_client/app/domain/app_config.dart';
@@ -19,7 +19,7 @@ class DioAppApi implements AppApi {
     dio = Dio(options);
 
     if (kDebugMode) {
-      dio.interceptors.add(AwesomeDioInterceptor());
+      dio.interceptors.add(PrettyDioLogger());
     }
     dio.interceptors.add(BadRequestInterceptor(dio));
   }
@@ -131,6 +131,22 @@ class DioAppApi implements AppApi {
 
   @override
   Future getPosts() {
-    return dio.get("/data/posts");
+    try {
+      return dio.get("/data/posts");
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future createPost(Map arqs) {
+    try {
+      return dio.post(
+        '/data/posts',
+        data: {"name": arqs["name"], "content": arqs["content"]},
+      );
+    } catch (e) {
+      rethrow;
+    }
   }
 }

@@ -25,6 +25,8 @@ abstract class AppApi {
 
   Future<dynamic> getPosts();
 
+  Future<dynamic> createPost(Map arqs);
+
   Future<dynamic> refreshToken({String? refreshToken});
 
   Future<dynamic> request(String path);
