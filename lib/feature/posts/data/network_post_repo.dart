@@ -31,10 +31,25 @@ class NetworkPostRepository implements PostRepository {
   }
 
   @override
-  Future<Iterable> getPosts() async {
+  Future<Iterable> getPosts(
+      {required int offset, required int fetchLimit}) async {
     try {
-      final response = await api.getPosts();
-      return response.data;
+      final response =
+          await api.getPosts(offset: offset, fetchLimit: fetchLimit);
+      if (response.data['data'].isEmpty) {
+        return const Iterable.empty();
+      } else {
+        return response.data['data'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future deletePost(String id) async {
+    try {
+      await api.deletePost(id);
     } catch (e) {
       rethrow;
     }

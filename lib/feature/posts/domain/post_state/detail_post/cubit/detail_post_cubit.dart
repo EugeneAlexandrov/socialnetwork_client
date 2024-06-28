@@ -19,8 +19,23 @@ class DetailPostCubit extends HydratedCubit<DetailPostState> {
     await repository.getPost(id).then((value) {
       emit(
         state.copyWith(
-          asyncSnapshot:
-              const AsyncSnapshot.withData(ConnectionState.done, true),
+          asyncSnapshot: const AsyncSnapshot.withData(
+              ConnectionState.done, "Успешное получение поста"),
+          post: value,
+        ),
+      );
+    }).catchError((error) {
+      addError(error);
+    });
+  }
+
+  Future<void> deletePost() async {
+    emit(state.copyWith(asyncSnapshot: AsyncSnapshot.waiting()));
+    await repository.deletePost(id).then((value) {
+      emit(
+        state.copyWith(
+          asyncSnapshot: const AsyncSnapshot.withData(
+              ConnectionState.done, 'Успешное удаление поста'),
           post: value,
         ),
       );

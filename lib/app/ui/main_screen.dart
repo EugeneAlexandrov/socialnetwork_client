@@ -15,53 +15,50 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // const textStyle = TextStyle(fontSize: 16);
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton.outlined(
-                onPressed: () {
-                  context.read<AuthCubit>().getProfile();
-                  showDialog(
-                    context: context,
-                    builder: (context) => CupertinoAlertDialog(
-                      content: Column(
-                        children: [
-                          Text(user.username),
-                          Text(user.email),
-                        ],
-                      ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton.outlined(
+              onPressed: () {
+                context.read<AuthCubit>().getProfile();
+                showDialog(
+                  context: context,
+                  builder: (context) => CupertinoAlertDialog(
+                    content: Column(
+                      children: [
+                        Text(user.username),
+                        Text(user.email),
+                      ],
                     ),
-                  );
-                },
-                icon: const Icon(Icons.face)),
-            IconButton.outlined(
-                onPressed: () {
-                  context.read<AuthCubit>().refreshToken();
-                },
-                icon: const Icon(Icons.refresh_outlined)),
-            IconButton.outlined(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.account_box_outlined)),
-          ],
-          title: const Text('Main Screen'),
-        ),
-        body: const PostList(),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) => const PostCreateDialog());
-          },
-        ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.face)),
+          IconButton.outlined(
+              onPressed: () {
+                context.read<AuthCubit>().refreshToken();
+              },
+              icon: const Icon(Icons.refresh_outlined)),
+          IconButton.outlined(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.account_box_outlined)),
+        ],
+        title: const Text('Main Screen'),
+      ),
+      body: const PostList(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showDialog(
+              context: context, builder: (context) => const PostCreateDialog());
+        },
       ),
     );
   }

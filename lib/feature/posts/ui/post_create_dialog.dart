@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:socialnetwork_client/app/ui/components/app_text_field.dart';
 import 'package:socialnetwork_client/app/ui/components/app_text_field_multipleline.dart';
-import 'package:socialnetwork_client/feature/auth/domain/auth_state/auth_cubit.dart';
-import 'package:socialnetwork_client/feature/posts/domain/post_state/cubit/post_cubit.dart';
+import 'package:socialnetwork_client/feature/posts/domain/post_state/bloc/post_bloc.dart';
 
 class PostCreateDialog extends StatefulWidget {
   const PostCreateDialog({super.key});
@@ -35,10 +34,14 @@ class _PostCreateDialogState extends State<PostCreateDialog> {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   Navigator.pop(context);
-                  context.read<PostCubit>().createPost({
-                    "name": nameController.text,
-                    "content": contentController.text
-                  });
+                  context.read<PostBloc>().add(
+                        PostEvent.createPost(
+                          {
+                            "name": nameController.text,
+                            "content": contentController.text,
+                          },
+                        ),
+                      );
                 }
               },
               child: Text("Добавить")),

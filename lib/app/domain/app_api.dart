@@ -23,11 +23,16 @@ abstract class AppApi {
     required String newPassword,
   });
 
-  Future<dynamic> getPosts();
+  Future<dynamic> getPosts({
+    required int offset,
+    required int fetchLimit,
+  });
 
   Future<dynamic> createPost(Map arqs);
 
   Future<dynamic> getPost(String id);
+
+  Future<dynamic> deletePost(String id);
 
   Future<dynamic> refreshToken({String? refreshToken});
 

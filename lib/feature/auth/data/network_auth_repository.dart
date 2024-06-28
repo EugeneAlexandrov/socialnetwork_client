@@ -22,7 +22,7 @@ class NetworkAuthRepository implements AuthRepository {
   }
 
   @override
-  Future refreshToken({String? refreshToken}) async {
+  Future<UserEntity> refreshToken({String? refreshToken}) async {
     try {
       final response = await api.refreshToken(refreshToken: refreshToken);
       print('Repository refresh token  finished');

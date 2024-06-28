@@ -9,6 +9,7 @@ import 'package:socialnetwork_client/app/domain/app_config.dart';
 @Singleton(as: AppApi)
 class DioAppApi implements AppApi {
   late final Dio dio;
+  late final Dio dioTokens;
 
   DioAppApi(AppConfig appConfig) {
     final options = BaseOptions(
@@ -17,11 +18,13 @@ class DioAppApi implements AppApi {
       receiveTimeout: const Duration(seconds: 5),
     );
     dio = Dio(options);
+    dioTokens = Dio(options);
 
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger());
+      dioTokens.interceptors.add(PrettyDioLogger());
     }
-    dio.interceptors.add(BadRequestInterceptor(dio));
+    dio.interceptors.add(AuthInterceptor(dio));
   }
 
   @override
@@ -37,7 +40,7 @@ class DioAppApi implements AppApi {
   @override
   Future<Response> refreshToken({String? refreshToken}) {
     try {
-      return dio.post('/auth/token/$refreshToken');
+      return dioTokens.post('/auth/token/$refreshToken');
     } catch (e) {
       print('Api refreshToken catch exception');
       rethrow;
@@ -122,7 +125,7 @@ class DioAppApi implements AppApi {
   @override
   Future<Response> fetch(RequestOptions requestOptions) {
     try {
-      return dio.fetch(requestOptions);
+      return dioTokens.fetch(requestOptions);
     } catch (e) {
       print('fetch');
       rethrow;
@@ -130,9 +133,12 @@ class DioAppApi implements AppApi {
   }
 
   @override
-  Future getPosts() {
+  Future getPosts({required int offset, required int fetchLimit}) {
     try {
-      return dio.get("/data/posts");
+      return dio.get("/data/posts", queryParameters: {
+        'fetchLimit': fetchLimit,
+        'offset': offset,
+      });
     } catch (e) {
       rethrow;
     }
@@ -154,6 +160,15 @@ class DioAppApi implements AppApi {
   Future getPost(String id) {
     try {
       return dio.get("/data/posts/$id");
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future deletePost(String id) {
+    try {
+      return dio.delete('/data/posts/$id');
     } catch (e) {
       rethrow;
     }
